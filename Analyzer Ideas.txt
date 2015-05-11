@@ -1,7 +1,22 @@
+======================================
+General Purpose
+======================================
+
 Proper IDisposable Implementation
 All IDisposable objects are disposed or returned from method.
-Disposable objects as property types are dangerous.
+Disposable objects as non-private property/field types are dangerous.
 return await Task.FromResult(...).
 Task.WaitAll(), .Result, .Wait(), etc in async method
 Equals & GetHashCode operates on different fields/properties
 Improper null checks in ==/!= operator overloads
+Check for license header at top of file
+
+======================================
+iSynaptic Specific
+======================================
+Only on methods should mutate state
+Init logic should happen in initialize method
+On methods should only mutate local state and not call command methods
+Aggregates should not exposes state publically
+Partial ValueObjects should not add additional fields outside of generated ones
+Partial scalar values should only have one field
