@@ -108,7 +108,7 @@
     <Compile Include="DiagnosticResultLocation.cs" />
     <Compile Include="DiagnosticVerifier.cs" />
     <Compile Include="DiagnosticResult.cs" />
-    <Compile Include="UnitTests.cs" />
+    <Compile Include="Design\NonPrivateDisposablePropertiesFieldsAnalyzerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
