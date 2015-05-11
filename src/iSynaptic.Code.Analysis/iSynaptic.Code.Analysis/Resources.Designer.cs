@@ -58,7 +58,7 @@ namespace iSynaptic.Code.Analysis
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture
+        internal static System.Globalization.CultureInfo Culture
         {
             get
             {
@@ -73,34 +73,16 @@ namespace iSynaptic.Code.Analysis
         /// <summary>
         ///   Looks up a localized string similar to Type names should be all uppercase..
         /// </summary>
-        internal static string AnalyzerDescription
-        {
-            get
-            {
-                return ResourceManager.GetString("AnalyzerDescription", resourceCulture);
-            }
-        }
+        internal static string AnalyzerDescription => ResourceManager.GetString("AnalyzerDescription", resourceCulture);
 
         /// <summary>
         ///   Looks up a localized string similar to Type name &apos;{0}&apos; contains lowercase letters.
         /// </summary>
-        internal static string AnalyzerMessageFormat
-        {
-            get
-            {
-                return ResourceManager.GetString("AnalyzerMessageFormat", resourceCulture);
-            }
-        }
+        internal static string AnalyzerMessageFormat => ResourceManager.GetString("AnalyzerMessageFormat", resourceCulture);
 
         /// <summary>
         ///   Looks up a localized string similar to Type name contains lowercase letters.
         /// </summary>
-        internal static string AnalyzerTitle
-        {
-            get
-            {
-                return ResourceManager.GetString("AnalyzerTitle", resourceCulture);
-            }
-        }
+        internal static string AnalyzerTitle => ResourceManager.GetString("AnalyzerTitle", resourceCulture);
     }
 }
