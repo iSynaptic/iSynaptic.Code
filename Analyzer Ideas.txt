@@ -4,12 +4,13 @@ General Purpose
 
 Proper IDisposable Implementation
 All IDisposable objects are disposed or returned from method.
-Disposable objects as non-private property/field types are dangerous.
 return await Task.FromResult(...).
 Task.WaitAll(), .Result, .Wait(), etc in async method
 Equals & GetHashCode operates on different fields/properties
 Improper null checks in ==/!= operator overloads
 Check for license header at top of file
+Non-readonly static fields
+Calling parameterless base constructor from deriving class constructor
 
 ======================================
 iSynaptic Specific

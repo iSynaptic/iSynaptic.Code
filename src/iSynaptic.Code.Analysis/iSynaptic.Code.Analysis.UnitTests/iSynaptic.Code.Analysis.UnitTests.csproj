@@ -106,10 +106,11 @@
   <ItemGroup>
     <Compile Include="CodeFixVerifier.cs" />
     <Compile Include="DiagnosticResultLocation.cs" />
-    <Compile Include="DiagnosticVerifier.cs" />
+    <Compile Include="DiagnosticAnalyzerVerifier.cs" />
     <Compile Include="DiagnosticResult.cs" />
     <Compile Include="Design\NonPrivateDisposablePropertiesFieldsAnalyzerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Usage\Async\AwaitingFromResultAnalyzerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

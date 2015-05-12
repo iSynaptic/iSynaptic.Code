@@ -29,7 +29,7 @@ using System.Threading.Tasks;
 namespace iSynaptic.Code.Analysis.Design
 {
     [TestFixture]
-    public class NonPrivateDisposablePropertiesFieldsAnalyzerTest : DiagnosticVerifier<NonPrivateDisposablePropertiesFieldsAnalyzer>
+    public class NonPrivateDisposablePropertiesFieldsAnalyzerTest : DiagnosticAnalyzerVerifier<NonPrivateDisposablePropertiesFieldsAnalyzer>
     {
         [Test]
         public void PropertyOfTypeIDisposable_YieldsDiagnostic()

@@ -47,7 +47,7 @@ namespace iSynaptic.Code.Analysis
     /// <summary>
     /// Base class for unit test fixtures testing analyzers with codefixes for correctness
     /// </summary>
-    public abstract partial class CodeFixVerifier : DiagnosticVerifier
+    public abstract partial class CodeFixVerifier : DiagnosticAnalyzerVerifier
     {
         /// <summary>
         /// Returns the codefix being tested (C#) - to be implemented in non-abstract class
