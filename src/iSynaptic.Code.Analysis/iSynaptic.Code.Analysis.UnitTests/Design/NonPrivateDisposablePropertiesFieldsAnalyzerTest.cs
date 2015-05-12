@@ -34,19 +34,11 @@ namespace iSynaptic.Code.Analysis.Design
         [Test]
         public void PropertyOfTypeIDisposable_YieldsDiagnostic()
         {
-            var code = @"
-                using System;
-
-                namespace ConsoleApplication1
+            var code = WrapInClass(@"
+                public IDisposable BadMojo
                 {
-                    class UserCode
-                    {
-                        public IDisposable BadMojo
-                        {
-                            get { return null; }
-                        }
-                    }
-                }";
+                    get { return null; }
+                }");
 
 
             var expected = new DiagnosticResult
@@ -56,7 +48,7 @@ namespace iSynaptic.Code.Analysis.Design
                 Severity = Diagnostics.NonPrivateDisposablePropertiesFields.DefaultSeverity,
                 Locations = new[]
                 {
-                    new DiagnosticResultLocation("Test0.cs", 8, 44)
+                    new DiagnosticResultLocation("Test0.cs", 2, 36)
                 }
             };
 
@@ -66,24 +58,19 @@ namespace iSynaptic.Code.Analysis.Design
         [Test]
         public void PropertyOfTypeThatDirectlyImplementsIDisposable_YieldsDiagnostic()
         {
-            var code = @"
-                using System;
-
-                namespace ConsoleApplication1
+            var code = WrapInNamespace(@"
+                class UserCode
                 {
-                    class UserCode
+                    public DisposableResource BadMojo
                     {
-                        public DisposableResource BadMojo
-                        {
-                            get { return new DisposableResource(); }
-                        }
+                        get { return new DisposableResource(); }
                     }
+                }
 
-                    class DisposableResource : IDisposable
-                    {
-                        public void Dispose() { }
-                    }
-                }";
+                class DisposableResource : IDisposable
+                {
+                    public void Dispose() { }
+                }");
 
 
             var expected = new DiagnosticResult
@@ -93,7 +80,7 @@ namespace iSynaptic.Code.Analysis.Design
                 Severity = Diagnostics.NonPrivateDisposablePropertiesFields.DefaultSeverity,
                 Locations = new[]
                 {
-                    new DiagnosticResultLocation("Test0.cs", 8, 51)
+                    new DiagnosticResultLocation("Test0.cs", 4, 47)
                 }
             };
 
@@ -103,11 +90,7 @@ namespace iSynaptic.Code.Analysis.Design
         [Test]
         public void PropertyOfTypeThatIndirectlyImplementsIDisposable_YieldsDiagnostic()
         {
-            var code = @"
-                using System;
-
-                namespace ConsoleApplication1
-                {
+            var code = WrapInNamespace(@"
                     class UserCode
                     {
                         public SneakyResource BadMojo
@@ -123,8 +106,7 @@ namespace iSynaptic.Code.Analysis.Design
                     class DisposableResource : IDisposable
                     {
                         public void Dispose() { }
-                    }
-                }";
+                    }");
 
 
             var expected = new DiagnosticResult
@@ -134,7 +116,7 @@ namespace iSynaptic.Code.Analysis.Design
                 Severity = Diagnostics.NonPrivateDisposablePropertiesFields.DefaultSeverity,
                 Locations = new[]
                 {
-                    new DiagnosticResultLocation("Test0.cs", 8, 47)
+                    new DiagnosticResultLocation("Test0.cs", 4, 47)
                 }
             };
 
@@ -144,16 +126,9 @@ namespace iSynaptic.Code.Analysis.Design
         [Test]
         public void FieldOfTypeIDisposable_YieldsDiagnostic()
         {
-            var code = @"
-                using System;
-
-                namespace ConsoleApplication1
-                {
-                    class UserCode
-                    {
-                        public IDisposable BadMojo;
-                    }
-                }";
+            var code = WrapInClass(@"
+                public IDisposable BadMojo;
+            ");
 
 
             var expected = new DiagnosticResult
@@ -163,7 +138,7 @@ namespace iSynaptic.Code.Analysis.Design
                 Severity = Diagnostics.NonPrivateDisposablePropertiesFields.DefaultSeverity,
                 Locations = new[]
                 {
-                    new DiagnosticResultLocation("Test0.cs", 8, 44)
+                    new DiagnosticResultLocation("Test0.cs", 2, 36)
                 }
             };
 
@@ -173,11 +148,7 @@ namespace iSynaptic.Code.Analysis.Design
         [Test]
         public void FieldOfTypeThatDirectlyImplementsIDisposable_YieldsDiagnostic()
         {
-            var code = @"
-                using System;
-
-                namespace ConsoleApplication1
-                {
+            var code = WrapInNamespace(@"
                     class UserCode
                     {
                         public DisposableResource BadMojo;
@@ -186,8 +157,7 @@ namespace iSynaptic.Code.Analysis.Design
                     class DisposableResource : IDisposable
                     {
                         public void Dispose() { }
-                    }
-                }";
+                    }");
 
 
             var expected = new DiagnosticResult
@@ -197,7 +167,7 @@ namespace iSynaptic.Code.Analysis.Design
                 Severity = Diagnostics.NonPrivateDisposablePropertiesFields.DefaultSeverity,
                 Locations = new[]
                 {
-                    new DiagnosticResultLocation("Test0.cs", 8, 51)
+                    new DiagnosticResultLocation("Test0.cs", 4, 51)
                 }
             };
 
@@ -207,11 +177,7 @@ namespace iSynaptic.Code.Analysis.Design
         [Test]
         public void FieldOfTypeThatIndirectlyImplementsIDisposable_YieldsDiagnostic()
         {
-            var code = @"
-                using System;
-
-                namespace ConsoleApplication1
-                {
+            var code = WrapInNamespace(@"
                     class UserCode
                     {
                         public SneakyResource BadMojo;
@@ -224,8 +190,7 @@ namespace iSynaptic.Code.Analysis.Design
                     class DisposableResource : IDisposable
                     {
                         public void Dispose() { }
-                    }
-                }";
+                    }");
 
 
             var expected = new DiagnosticResult
@@ -235,7 +200,7 @@ namespace iSynaptic.Code.Analysis.Design
                 Severity = Diagnostics.NonPrivateDisposablePropertiesFields.DefaultSeverity,
                 Locations = new[]
                 {
-                    new DiagnosticResultLocation("Test0.cs", 8, 47)
+                    new DiagnosticResultLocation("Test0.cs", 4, 47)
                 }
             };
 

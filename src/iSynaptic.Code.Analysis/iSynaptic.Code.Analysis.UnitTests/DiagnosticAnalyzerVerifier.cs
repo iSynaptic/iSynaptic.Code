@@ -69,9 +69,9 @@ namespace iSynaptic.Code.Analysis
         protected virtual string WrapNamespace => "TestNamespace";
         protected virtual string WrapClass => "TestClass";
 
-        protected virtual string WrapInNamespace(string source) => $"{WrapUsings} namespace {WrapNamespace} {{\r\n{source}\r\n}}";
-        protected virtual string WrapInClass(string source) => WrapInNamespace($"public class {WrapClass} {{\r\n{source}\r\n}}");
-        protected virtual string WrapInMethod(string source) => WrapInClass($"public void Method() {{\r\n{source}\r\n}}");
+        protected virtual string WrapInNamespace(string source) => $"{WrapUsings} namespace {WrapNamespace} {{ {source} }}";
+        protected virtual string WrapInClass(string source) => WrapInNamespace($"public class {WrapClass} {{ {source} }}");
+        protected virtual string WrapInMethod(string source) => WrapInClass($"public void Method() {{ {source} }}");
 
         #region Verifier wrappers
 

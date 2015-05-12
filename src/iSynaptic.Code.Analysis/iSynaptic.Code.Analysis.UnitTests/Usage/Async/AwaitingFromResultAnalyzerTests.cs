@@ -25,7 +25,7 @@ namespace iSynaptic.Code.Analysis.Usage.Async
                 Severity = Diagnostics.AwaitingFromResult.DefaultSeverity,
                 Locations = new[]
                 {
-                    new DiagnosticResultLocation("Test0.cs", 6, 32)
+                    new DiagnosticResultLocation("Test0.cs", 4, 32)
                 }
             };
 
