@@ -40,22 +40,26 @@ namespace iSynaptic.Code.Analysis.Usage.Async
 
         public override void Initialize(AnalysisContext context)
         {
-            context.RegisterSyntaxNodeAction(AnalyzeAwaitExpression, SyntaxKind.AwaitExpression);
-            //context.RegisterCompilationStartAction(c => c.RegisterCodeBlockStartAction<SyntaxKind>(c2 => c2.RegisterSyntaxNodeAction(AnalyzeAwaitExpression, SyntaxKind.AwaitExpression)));
+            context.RegisterCompilationStartAction(csac =>
+            {
+                var taskType = csac.Compilation.GetTypeByMetadataName("System.Threading.Tasks.Task");
+                if(taskType != null)
+                    csac.RegisterSyntaxNodeAction(snac => AnalyzeAwaitExpression(snac, taskType), SyntaxKind.AwaitExpression);
+            });
         }
 
-        private void AnalyzeAwaitExpression(SyntaxNodeAnalysisContext context)
+        private void AnalyzeAwaitExpression(SyntaxNodeAnalysisContext context, INamedTypeSymbol taskType)
         {
+            if (context.CancellationToken.IsCancellationRequested)
+                return;
+
             var exp = (AwaitExpressionSyntax)context.Node;
             var invocation = exp.Expression as InvocationExpressionSyntax;
 
             if (invocation == null) return;
 
             var memberAccess = invocation.Expression as MemberAccessExpressionSyntax;
-
             if (memberAccess.Name.Identifier.Text != "FromResult") return;
-
-            var taskType = context.SemanticModel.Compilation.GetTypeByMetadataName("System.Threading.Tasks.Task");
 
             var subjectInfo = context.SemanticModel.GetSymbolInfo(memberAccess.Expression);
             if (subjectInfo.CandidateReason == CandidateReason.None)

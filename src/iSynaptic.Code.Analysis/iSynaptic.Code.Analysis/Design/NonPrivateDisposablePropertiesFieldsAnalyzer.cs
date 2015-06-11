@@ -18,10 +18,16 @@ namespace iSynaptic.Code.Analysis.Design
 
         public override void Initialize(AnalysisContext context)
         {
-            context.RegisterSymbolAction(AnalyzePropertyOrField, SymbolKind.Field, SymbolKind.Property);
+            context.RegisterCompilationStartAction(csac =>
+            {
+                var disposableInterface = csac.Compilation.GetTypeByMetadataName("System.IDisposable");
+
+                if(disposableInterface != null)
+                    csac.RegisterSymbolAction(sac => AnalyzePropertyOrField(sac, disposableInterface), SymbolKind.Field, SymbolKind.Property);
+            });
         }
 
-        private void AnalyzePropertyOrField(SymbolAnalysisContext context)
+        private void AnalyzePropertyOrField(SymbolAnalysisContext context, INamedTypeSymbol disposableInterface)
         {
             if (context.CancellationToken.IsCancellationRequested)
                 return;
@@ -33,7 +39,6 @@ namespace iSynaptic.Code.Analysis.Design
                 (context.Symbol as IPropertySymbol)?.Type
                 ?? (context.Symbol as IFieldSymbol)?.Type;
             
-            var disposableInterface = context.Compilation.GetTypeByMetadataName("System.IDisposable");
             if(type.Equals(disposableInterface) || type.AllInterfaces.Any(x => x.Equals(disposableInterface)))
             {
                 var diagnostic = Diagnostic.Create(

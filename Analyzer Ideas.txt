@@ -4,7 +4,6 @@ General Purpose
 
 Proper IDisposable Implementation
 All IDisposable objects are disposed or returned from method.
-return await Task.FromResult(...).
 Task.WaitAll(), .Result, .Wait(), etc in async method
 Equals & GetHashCode operates on different fields/properties
 Improper null checks in ==/!= operator overloads
@@ -13,11 +12,11 @@ Non-readonly static fields
 Calling parameterless base constructor from deriving class constructor
 
 ======================================
-iSynaptic Specific
+iSynaptic.Core Specific
 ======================================
-Only on methods should mutate state
-Init logic should happen in initialize method
-On methods should only mutate local state and not call command methods
-Aggregates should not exposes state publically
+Only "On" methods should mutate state
+Init logic should happen in "Initialize" method
+"On" methods should only mutate local state and not call command methods
+Aggregates should not make state public
 Partial ValueObjects should not add additional fields outside of generated ones
 Partial scalar values should only have one field
